@@ -1,0 +1,31 @@
+﻿@model NBPExchangeRates.ViewModel.NBPAPIResponseViewModel?
+@{
+    ViewData["Title"] = "Aktualny kurs NBP";
+}
+@if (Model is {Rates.Count: > 0 })
+{
+    <table class="table">
+        <caption>Dane z dnia @Model.EffectiveDate.ToShortDateString()</caption>
+        <thead>
+            <tr>
+                <th scope="col">Kod</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Kurs</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rate in Model.Rates)
+            {
+                <tr>
+                    <td>@rate.Code</td>
+                    <td>@rate.Currency</td>
+                    <td>@rate.Mid</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nie udało się pobrać danych. Spróbuj ponownie później.</p>
+}
